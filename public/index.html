@@ -261,83 +261,86 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const iconOpen = document.getElementById('icon-open');
         const iconClose = document.getElementById('icon-close');
+      
         mobileMenuButton.addEventListener('click', () => {
-            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
-            mobileMenuButton.setAttribute('aria-expanded', !expanded);
-            mobileMenu.classList.toggle('mobile-menu-open');
-            iconOpen.classList.toggle('hidden');
-            iconClose.classList.toggle('hidden');
+          const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+          mobileMenuButton.setAttribute('aria-expanded', !expanded);
+          mobileMenu.classList.toggle('mobile-menu-open');
+          iconOpen.classList.toggle('hidden');
+          iconClose.classList.toggle('hidden');
         });
+      
         document.querySelectorAll('a[href^="#"], a[href*=".html#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                const isSamePageAnchor = href.startsWith('#') && href.length > 1;
-                const isCrossPageAnchor = href.includes('.html#');
-
-                if (isCrossPageAnchor) {
-                    // For cross-page anchors, let the browser handle navigation.
-                    // Close mobile menu if a link inside it is clicked.
-                    if (mobileMenu.classList.contains('mobile-menu-open') && mobileMenu.contains(this)) {
-                        mobileMenuButton.click();
-                    }
-                    return;
+          anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            const isSamePageAnchor = href.startsWith('#') && href.length > 1;
+            const isCrossPageAnchor = href.includes('.html#');
+      
+            if (isCrossPageAnchor) {
+              if (mobileMenu.classList.contains('mobile-menu-open') && mobileMenu.contains(this)) {
+                mobileMenuButton.click();
+              }
+              return;
+            }
+      
+            if (isSamePageAnchor) {
+              e.preventDefault();
+              const targetId = href;
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                const headerOffset = document.querySelector('header').offsetHeight;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                if (mobileMenu.classList.contains('mobile-menu-open')) {
+                  mobileMenuButton.click();
                 }
-
-                if (isSamePageAnchor) {
-                    e.preventDefault();
-                    const targetId = href;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const headerOffset = document.querySelector('header').offsetHeight;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-                        if (mobileMenu.classList.contains('mobile-menu-open')) {
-                            mobileMenuButton.click();
-                        }
-                    }
-                } else {
-                    // For other links (e.g., about.html, mailto:, tel:), let default behavior proceed.
-                    // Close mobile menu if a link inside it is clicked.
-                     if (mobileMenu.classList.contains('mobile-menu-open') && mobileMenu.contains(this) && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
-                        mobileMenuButton.click();
-                    }
-                }
-            });
+              }
+            } else {
+              if (mobileMenu.classList.contains('mobile-menu-open') && mobileMenu.contains(this) && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
+                mobileMenuButton.click();
+              }
+            }
+          });
         });
+      
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+      
+        // Slideshow
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
         const slideInterval = 5000;
+      
         function nextSlide() {
-            if (slides.length === 0) return;
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+          if (slides.length === 0) return;
+          slides[currentSlide].classList.remove('active');
+          currentSlide = (currentSlide + 1) % slides.length;
+          slides[currentSlide].classList.add('active');
         }
-        if (slides.length > 1) {    
-            setInterval(nextSlide, slideInterval);
+      
+        if (slides.length > 1) {
+          setInterval(nextSlide, slideInterval);
         }
+      
+        // Close mobile menu on scroll down
         let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
-        let autoClosed = false;
-
+      
         window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY || document.documentElement.scrollTop;
-
-        // Close the menu on scroll down, but only if it's open
-        if (
-        currentScroll > lastScrollTop &&
-        mobileMenu.classList.contains('mobile-menu-open')
-    ) {
-        mobileMenu.classList.remove('mobile-menu-open');
-        mobileMenuButton.setAttribute('aria-expanded', false);
-        iconOpen.classList.remove('hidden');
-        iconClose.classList.add('hidden');
-        autoClosed = true;
-    }
-
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    });
+          const currentScroll = window.scrollY || document.documentElement.scrollTop;
+      
+          if (
+            currentScroll > lastScrollTop &&
+            mobileMenu.classList.contains('mobile-menu-open')
+          ) {
+            mobileMenu.classList.remove('mobile-menu-open');
+            mobileMenuButton.setAttribute('aria-expanded', false);
+            iconOpen.classList.remove('hidden');
+            iconClose.classList.add('hidden');
+          }
+      
+          lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        });
     </script>
+      
 </body>
 </html>
