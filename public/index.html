@@ -318,6 +318,22 @@
         if (slides.length > 1) {    
             setInterval(nextSlide, slideInterval);
         }
+        let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
+
+        window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY || document.documentElement.scrollTop;
+
+        // If scrolling down and the menu is open, close it
+        if (currentScroll > lastScrollTop && mobileMenu.classList.contains('mobile-menu-open')) {
+            mobileMenu.classList.remove('mobile-menu-open');
+            mobileMenuButton.setAttribute('aria-expanded', false);
+            iconOpen.classList.remove('hidden');
+            iconClose.classList.add('hidden');
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
     </script>
 </body>
 </html>
