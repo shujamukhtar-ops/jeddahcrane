@@ -261,7 +261,17 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const iconOpen = document.getElementById('icon-open');
         const iconClose = document.getElementById('icon-close');
-        const header = document.querySelector('header'); // Get the header element
+        const header = document.querySelector('header');
+
+        let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollThreshold = 10; // Min scroll distance (px) to trigger actions
+        
+        // IMPORTANT: This flag controls the "open on scroll down" behavior from previous discussions.
+        // It's recommended to keep this false for better UX unless you specifically want that unusual behavior.
+        const enableOpenOnScrollDown = false; 
+        const openOnScrollDownActivationPoint = window.innerHeight;
+
+        let allowScrollToCloseMenu = true; // Flag to manage scroll-based closing after manual interaction
 
         // Function to open the mobile menu
         function openMobileMenu() {
@@ -270,6 +280,12 @@
                 mobileMenu.classList.add('mobile-menu-open');
                 iconOpen.classList.add('hidden');
                 iconClose.classList.remove('hidden');
+
+                // When manually opening, temporarily prevent scroll from closing it immediately
+                allowScrollToCloseMenu = false;
+                setTimeout(() => {
+                    allowScrollToCloseMenu = true;
+                }, 550); // Duration should be slightly longer than your CSS transition (e.g., 0.5s is 500ms)
             }
         }
 
@@ -280,6 +296,8 @@
                 mobileMenu.classList.remove('mobile-menu-open');
                 iconOpen.classList.remove('hidden');
                 iconClose.classList.add('hidden');
+                // When menu is closed (manually or by scroll), allow scroll-to-close for the next time
+                allowScrollToCloseMenu = true;
             }
         }
 
@@ -293,16 +311,13 @@
           }
         });
 
-        // Close menu when a link inside it is clicked (for same-page anchors or navigation)
+        // Close menu when a link inside it is clicked
         document.querySelectorAll('#mobile-menu a').forEach(anchor => {
           anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            // Check if it's a link to another page or a same-page anchor
             const isSamePageAnchor = href.startsWith('#') && href.length > 1;
-            const isInternalLink = href.includes('.html'); // Basic check for internal page links
 
             if (mobileMenu.classList.contains('mobile-menu-open')) {
-                // For same-page anchors, prevent default, scroll, then close
                 if (isSamePageAnchor) {
                     e.preventDefault();
                     const targetId = href;
@@ -312,13 +327,11 @@
                         const elementPosition = targetElement.getBoundingClientRect().top;
                         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-                        closeMobileMenu();
+                        closeMobileMenu(); // This will also reset allowScrollToCloseMenu
                     }
                 } else if (!href.startsWith('mailto:') && !href.startsWith('tel:')) {
-                    // For other links (not mailto/tel), close after a tiny delay to allow navigation
-                    // For links to other pages, the menu will close naturally on page load,
-                    // but this handles cases where navigation might be client-side or very fast.
-                    setTimeout(closeMobileMenu, 100);
+                    // For other links (not mailto/tel), close after a tiny delay
+                    setTimeout(closeMobileMenu, 100); // Also resets allowScrollToCloseMenu
                 }
             }
           });
@@ -329,62 +342,51 @@
         // Slideshow
         const slides = document.querySelectorAll('.slide');
         let currentSlide = 0;
-        const slideInterval = 5000; // 5 seconds
+        const slideInterval = 5000;
       
         function nextSlide() {
-          if (slides.length === 0) return; // Do nothing if no slides
+          if (slides.length === 0) return;
           slides[currentSlide].classList.remove('active');
           currentSlide = (currentSlide + 1) % slides.length;
           slides[currentSlide].classList.add('active');
         }
       
-        if (slides.length > 1) { // Only run slideshow if there's more than one slide
+        if (slides.length > 1) {
           setInterval(nextSlide, slideInterval);
         }
       
         // --- Scroll behavior for mobile menu ---
-        let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollThreshold = 10; // Min scroll distance (px) to trigger actions
-        
-        // Point after which "open on scroll down" might activate (e.g., after scrolling down one viewport height)
-        // This is only relevant if you enable the "open on scroll down" feature below.
-        const openOnScrollDownActivationPoint = window.innerHeight; 
-
-        // **IMPORTANT**: Set this to true if you want the menu to OPEN when scrolling DOWN
-        const enableOpenOnScrollDown = false; 
-
         window.addEventListener('scroll', () => {
-          const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-          const isMenuOpen = mobileMenu.classList.contains('mobile-menu-open');
-          const scrollDifference = currentScroll - lastScrollTop;
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            const isMenuOpen = mobileMenu.classList.contains('mobile-menu-open');
+            const scrollDifference = currentScroll - lastScrollTop;
 
-          // Ensure we are scrolling beyond the threshold to avoid jitter
-          if (Math.abs(scrollDifference) < scrollThreshold) {
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Still update lastScrollTop
-            return;
-          }
-
-          // Scrolling Down
-          if (currentScroll > lastScrollTop) {
-            if (isMenuOpen) {
-              // 1. Close mobile menu when scrolled down (if it's open)
-              closeMobileMenu();
-            } else if (enableOpenOnScrollDown && !isMenuOpen && currentScroll > openOnScrollDownActivationPoint) {
-              // 2. Open mobile menu when scrolled down (if enabled, menu is closed, and past activation point)
-              // This is the UNUSUAL behavior. Test thoroughly if you enable it.
-              openMobileMenu();
+            // Only act if scrolled more than the threshold significantly
+            // and not at the very top of the page for the threshold condition
+            if (Math.abs(scrollDifference) < scrollThreshold && currentScroll !== 0) {
+                // Still update lastScrollTop if it has changed slightly within the threshold
+                if (currentScroll !== lastScrollTop) {
+                    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+                }
+                return;
             }
-          } 
-          // Scrolling Up (Optional: Add behavior for scrolling up if needed)
-          // else {
-          //   // Example: If you wanted to do something when scrolling up
-          //   if (!isMenuOpen && currentScroll < (lastScrollTop - scrollThreshold)) {
-          //      // Potentially show header or menu button if it was hidden
-          //   }
-          // }
+
+            // Scrolling Down
+            if (currentScroll > lastScrollTop && currentScroll > 0) { // currentScroll > 0 to avoid issues at very top
+                if (isMenuOpen && allowScrollToCloseMenu) { // Check the flag here
+                    closeMobileMenu();
+                } else if (enableOpenOnScrollDown && !isMenuOpen && currentScroll > openOnScrollDownActivationPoint && allowScrollToCloseMenu) {
+                    // This is the "open on scroll down" part, currently disabled by enableOpenOnScrollDown = false
+                    // If you enable it, ensure allowScrollToCloseMenu logic is appropriate.
+                    // openMobileMenu(); 
+                }
+            }
+            // Scrolling Up (Optional: Add behavior for scrolling up if needed)
+            // else if (currentScroll < lastScrollTop) {
+            // }
       
-          lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-        }, { passive: true }); // Use passive listener for better scroll performance
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        }, { passive: true });
     </script>
       
 </body>
