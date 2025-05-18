@@ -319,21 +319,25 @@
             setInterval(nextSlide, slideInterval);
         }
         let lastScrollTop = window.scrollY || document.documentElement.scrollTop;
+        let autoClosed = false;
 
         window.addEventListener('scroll', () => {
         const currentScroll = window.scrollY || document.documentElement.scrollTop;
 
-        // If scrolling down and the menu is open, close it
-        if (currentScroll > lastScrollTop && mobileMenu.classList.contains('mobile-menu-open')) {
-            mobileMenu.classList.remove('mobile-menu-open');
-            mobileMenuButton.setAttribute('aria-expanded', false);
-            iconOpen.classList.remove('hidden');
-            iconClose.classList.add('hidden');
-        }
+        // Close the menu on scroll down, but only if it's open
+        if (
+        currentScroll > lastScrollTop &&
+        mobileMenu.classList.contains('mobile-menu-open')
+    ) {
+        mobileMenu.classList.remove('mobile-menu-open');
+        mobileMenuButton.setAttribute('aria-expanded', false);
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        autoClosed = true;
+    }
 
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
-
     </script>
 </body>
 </html>
