@@ -14,10 +14,10 @@ export default {
 		const mailBody = {
 		  personalizations: [
 			{
-			  to: [{ email: "parts@jeddahcraneservices.com" }]
+			  to: [{ email: "syed@jeddahcrane.com" }]
 			}
 		  ],
-		  from: { email: "noreply@jeddahcraneservices.com", name: name },
+		  from: { email: "nsyed@jeddahcrane.com", name: name },
 		  subject: `Website Contact: ${subject}`,
 		  content: [
 			{
@@ -43,7 +43,7 @@ export default {
 		});
   
 		if (response.ok) {
-		  return Response.redirect("https://jeddahcraneservices.pages.dev/thanks.html", 302);
+		  return Response.redirect("https://jeddahcrane.pages.dev/thanks.html", 302);
 		} else {
 		  const err = await response.text();
 		  return new Response("Email failed: " + err, { status: 500 });
