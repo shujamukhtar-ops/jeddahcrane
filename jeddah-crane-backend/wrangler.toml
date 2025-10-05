@@ -1,6 +1,0 @@
-name = "jeddah-form-worker"
-main = "src/index.js"
-compatibility_date = "2024-05-17"
-
-[var]
-SENDGRID_API_KEY = "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"

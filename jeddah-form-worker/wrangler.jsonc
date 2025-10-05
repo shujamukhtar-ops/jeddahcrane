@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "jeddahcranebackend",
+	"name": "jeddah-form-worker",
 	"main": "src/index.js",
 	"compatibility_date": "2025-10-05",
 	/**
