@@ -4,11 +4,11 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "jeddah-form-worker",
+	"name": "jeddahcranebackend",
 	"main": "src/index.js",
-	"compatibility_date": "2025-05-17",
-	"observability": {
-		"enabled": true
+	"compatibility_date": "2025-10-05",
+	"assets": {
+		"directory": "./dist"
 	}
 	/**
 	 * Smart Placement
