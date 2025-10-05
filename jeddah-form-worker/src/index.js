@@ -1,56 +1,42 @@
 export default {
-	async fetch(request, env) {
-	  const url = new URL(request.url);
+    async fetch(request, env) {
+      if (request.method === "POST") {
+        const formData = await request.formData();
+        const name = formData.get("name");
+        const email = formData.get("email");
+        const subject = formData.get("subject");
+        const message = formData.get("message");
   
-	  if (request.method === 'POST' && url.pathname === '/submit-form') {
-		const formData = await request.formData();
+        const RESEND_API_KEY = env.RESEND_API_KEY;
+        const TO_EMAIL = "syed@jeddahcrane.com";
   
-		const name = formData.get('name') || "Anonymous";
-		const email = formData.get('email') || "no-reply@example.com";
-		const phone = formData.get('phone') || "";
-		const subject = formData.get('subject') || "No Subject";
-		const message = formData.get('message') || "";
+        const response = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "Jeddah Crane <no-reply@yourdomain.com>",
+            to: [TO_EMAIL],
+            subject: `Contact Form: ${subject}`,
+            html: `
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Message:</strong><br>${message}</p>
+            `,
+          }),
+        });
   
-		const mailBody = {
-		  personalizations: [
-			{
-			  to: [{ email: "syed@jeddahcrane.com" }]
-			}
-		  ],
-		  from: { email: "nsyed@jeddahcrane.com", name: name },
-		  subject: `Website Contact: ${subject}`,
-		  content: [
-			{
-			  type: "text/plain",
-			  value:
-				`New message from website:\n\n` +
-				`Name: ${name}\n` +
-				`Email: ${email}\n` +
-				(phone ? `Phone: ${phone}\n` : "") +
-				`Subject: ${subject}\n\n` +
-				`Message:\n${message}`
-			}
-		  ]
-		};
-  
-		const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
-		  method: "POST",
-		  headers: {
-			"Authorization": `Bearer ${env.SENDGRID_API_KEY}`,
-			"Content-Type": "application/json"
-		  },
-		  body: JSON.stringify(mailBody)
-		});
-  
-		if (response.ok) {
-		  return Response.redirect("https://jeddahcrane.pages.dev/thanks.html", 302);
-		} else {
-		  const err = await response.text();
-		  return new Response("Email failed: " + err, { status: 500 });
-		}
-	  }
-  
-	  return new Response("Not Found", { status: 404 });
-	}
+        if (response.ok) {
+          return new Response("Message sent successfully!", { status: 200 });
+        } else {
+          return new Response("Failed to send message.", { status: 500 });
+        }
+      }
+      return new Response("Only POST requests allowed.", { status: 405 });
+    },
   };
   
+
+  //re_H3KUg32a_3anUyE43yjPZ8J1ThRYghLss
