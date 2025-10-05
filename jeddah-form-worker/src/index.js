@@ -29,7 +29,7 @@ export default {
         });
   
         if (response.ok) {
-          return new Response("Message sent successfully!", { status: 200 });
+          return Response.redirect("https://jeddahcrane.com/thanks.html", 303);
         } else {
           return new Response("Failed to send message.", { status: 500 });
         }
@@ -39,4 +39,4 @@ export default {
   };
   
 
-  //re_H3KUg32a_3anUyE43yjPZ8J1ThRYghLss
+  //
