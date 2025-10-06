@@ -2,5 +2,5 @@ name = "jeddah-form-worker"
 main = "src/index.js"
 compatibility_date = "2025-10-05"
 
-[var]
+[vars]
 RESEND_API_KEY = "re_H3KUg32a_3anUyE43yjPZ8J1ThRYghLss"

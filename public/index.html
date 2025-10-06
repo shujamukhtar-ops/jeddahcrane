@@ -14,6 +14,33 @@
         .slide.active { opacity: 1; z-index: 2; }
         #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out; }
         #mobile-menu.mobile-menu-open { max-height: 500px; opacity: 1; }
+
+        /* CSS for Parts Slideshow */
+        .parts-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+        .parts-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dot.active {
+            background-color: white;
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800">
@@ -126,45 +153,78 @@
         </section>
 
         <section class="py-12 sm:py-16 lg:py-24 bg-slate-50">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-8 sm:mb-12">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 md:text-4xl">Wide Range of Crane Parts</h2>
-                    <p class="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-                        From electrical components to switches, we have everything for your needs.
-                    </p>
+            <div class="container mx-auto px-4 sm:px-6 lg:py-8">
+                <div id="parts-slideshow" class="relative rounded-lg overflow-hidden shadow-2xl h-[300px] sm:h-[400px] md:h-[500px] bg-slate-800">
+        
+                    <a href="wire-ropes.html" class="parts-slide">
+                        <img src="logo/wire_rope.png" alt="" class="absolute inset-0 w-full h-full object-cover blur-md scale-110 brightness-50">
+                        <img src="logo/wire_rope.png" alt="Wire Ropes for cranes" class="relative z-10 w-full h-full object-contain">
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 pointer-events-none">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-wider [text-shadow:0_2px_5px_rgba(0,0,0,0.8)]">Wire Ropes</h3>
+                        </div>
+                    </a>
+        
+                    <a href="current-collector.html" class="parts-slide">
+                        <img src="logo/current_collector.png" alt="" class="absolute inset-0 w-full h-full object-cover blur-md scale-110 brightness-50">
+                        <img src="logo/current_collector.png" alt="Crane current collector component" class="relative z-10 w-full h-full object-contain">
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 pointer-events-none">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-wider [text-shadow:0_2px_5px_rgba(0,0,0,0.8)]">Current Collector</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="brakes.html" class="parts-slide">
+                        <img src="logo/brakes.png" alt="" class="absolute inset-0 w-full h-full object-cover blur-md scale-110 brightness-50">
+                        <img src="logo/brakes.png" alt="Industrial crane brake system" class="relative z-10 w-full h-full object-contain">
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 pointer-events-none">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-wider [text-shadow:0_2px_5px_rgba(0,0,0,0.8)]">Brakes</h3>
+                        </div>
+                    </a>
+        
+                    <a href="busbar.html" class="parts-slide"> 
+                        <img src="logo/busbar.png" alt="" class="absolute inset-0 w-full h-full object-cover blur-md scale-110 brightness-50">
+                        <img src="logo/busbar.png" alt="Electrical busbars for power distribution" class="relative z-10 w-full h-full object-contain">
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 pointer-events-none">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-wider [text-shadow:0_2px_5px_rgba(0,0,0,0.8)]">Busbars</h3>
+                        </div>
+                    </a>
+        
+                    <a href="festoon-systems.html" class="parts-slide"> 
+                        <img src="logo/festoon_system.png" alt="" class="absolute inset-0 w-full h-full object-cover blur-md scale-110 brightness-50">
+                        <img src="logo/festoon_system.png" alt="Festoon cable management system" class="relative z-10 w-full h-full object-contain">
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 pointer-events-none">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-wider [text-shadow:0_2px_5px_rgba(0,0,0,0.8)]">Festoon Systems</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="circuit-breakers.html" class="parts-slide"> 
+                        <img src="logo/circuit_breaker.png" alt="" class="absolute inset-0 w-full h-full object-cover blur-md scale-110 brightness-50">
+                        <img src="logo/circuit_breaker.png" alt="Industrial circuit breakers" class="relative z-10 w-full h-full object-contain">
+                        <div class="absolute inset-0 z-20 flex items-center justify-center bg-black/20 pointer-events-none">
+                            <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-wider [text-shadow:0_2px_5px_rgba(0,0,0,0.8)]">Circuit Breakers</h3>
+                        </div>
+                    </a>
+        
+                    <button id="prev-part-btn" class="absolute top-1/2 left-2 sm:left-4 -translate-y-1/2 z-30 bg-white/30 hover:bg-white/50 text-white rounded-full p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                        <span class="sr-only">Previous Slide</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    <button id="next-part-btn" class="absolute top-1/2 right-2 sm:right-4 -translate-y-1/2 z-30 bg-white/30 hover:bg-white/50 text-white rounded-full p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                        <span class="sr-only">Next Slide</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+        
+                    <div id="parts-dots-container" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex space-x-2">
+                        </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                     <a href="wire-ropes.html">
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <h3 class="text-lg sm:text-xl font-semibold text-slate-900 mb-2">Wire Ropes</h3>
-                         </div>
-                     </a>
-                     <a href="current-collector.html">
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <h3 class="text-lg sm:text-xl font-semibold text-slate-900 mb-2">Current Collector</h3>
-                         </div>
-                     </a>
-                     <a href="brakes.html">
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <h3 class="text-lg sm:text-xl font-semibold text-slate-900 mb-2">Brakes</h3>
-                         </div>
-                     </a>
-                     <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 class="text-lg sm:text-xl font-semibold text-slate-900 mb-2">Busbars</h3>
-                     </div>
-                     <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 class="text-lg sm:text-xl font-semibold text-slate-900 mb-2">Festoon Systems</h3>
-                     </div>
-                     <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 class="text-lg sm:text-xl font-semibold text-slate-900 mb-2">Circuit Breakers</h3>
-                     </div>
-                </div>
-                 <div class="mt-8 sm:mt-12 text-center">
+                <div class="mt-8 sm:mt-12 text-center">
                     <a href="parts.html" class="text-yellow-600 hover:text-yellow-500 font-semibold text-sm sm:text-base">Explore All Part Categories &rarr;</a>
                 </div>
             </div>
         </section>
-
 
         <section id="safety" class="py-12 sm:py-16 lg:py-24 bg-yellow-500 text-white">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -386,6 +446,77 @@
       
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }, { passive: true });
+
+        // --- Parts Slideshow ---
+        const partSlides = document.querySelectorAll('.parts-slide');
+        if (partSlides.length > 0) {
+            const prevPartBtn = document.getElementById('prev-part-btn');
+            const nextPartBtn = document.getElementById('next-part-btn');
+            const dotsContainer = document.getElementById('parts-dots-container');
+            let currentPartSlide = 0;
+            let partSlideInterval;
+
+            // Function to create dot indicators
+            const createDots = () => {
+                partSlides.forEach((_, i) => {
+                    const dot = document.createElement('button'); // Use button for accessibility
+                    dot.type = 'button';
+                    dot.classList.add('dot');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => {
+                        goToPartSlide(i);
+                        resetInterval();
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+            };
+
+            // Function to update the active dot
+            const updateDots = () => {
+                const dots = dotsContainer.querySelectorAll('.dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentPartSlide);
+                });
+            };
+
+            // Function to navigate to a specific slide
+            const goToPartSlide = (index) => {
+                partSlides[currentPartSlide].classList.remove('active');
+                currentPartSlide = (index + partSlides.length) % partSlides.length;
+                partSlides[currentPartSlide].classList.add('active');
+                updateDots();
+            };
+            
+            // Function to go to the next slide
+            const nextPartSlide = () => goToPartSlide(currentPartSlide + 1);
+
+            // Function to go to the previous slide
+            const prevPartSlide = () => goToPartSlide(currentPartSlide - 1);
+            
+            // Function to reset the autoplay timer
+            const resetInterval = () => {
+                clearInterval(partSlideInterval);
+                partSlideInterval = setInterval(nextPartSlide, 5000); // 5-second interval
+            };
+
+            // Add event listeners for navigation buttons
+            prevPartBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                prevPartSlide();
+                resetInterval();
+            });
+
+            nextPartBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                nextPartSlide();
+                resetInterval();
+            });
+
+            // Initialize the slideshow
+            createDots();
+            goToPartSlide(0); // Show the first slide
+            resetInterval(); // Start autoplay
+        }
     </script>
       
 </body>
