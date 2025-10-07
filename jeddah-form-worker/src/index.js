@@ -18,7 +18,7 @@ export default {
 
         const RESEND_API_KEY = env.RESEND_API_KEY;
         const TO_EMAIL = "syed@jeddahcrane.com";
-        const FROM_EMAIL = "Jeddah Crane <no-reply@yourdomain.com>"; // Replace with verified sender
+        const FROM_EMAIL = "Jeddah Crane <no-reply@jeddahcrane.com>"; // Replace with verified sender
 
         const emailResponse = await fetch("https://api.resend.com/emails", {
           method: "POST",

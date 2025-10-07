@@ -1,6 +1,8 @@
-name = "jeddah-form-worker"
-main = "src/index.js"
-compatibility_date = "2025-10-05"
+name = "resend-worker"
+type = "javascript"
+main = "index.js"
+
+compatibility_date = "2023-10-01"
 
 [vars]
-RESEND_API_KEY = "re_H3KUg32a_3anUyE43yjPZ8J1ThRYghLss"
+FROM_EMAIL = "Jeddah Crane <no-reply@jeddahcrane.com>"
