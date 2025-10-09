@@ -1,8 +1,0 @@
-name = "resend-worker"
-type = "javascript"
-main = "index.js"
-
-compatibility_date = "2023-10-01"
-
-[vars]
-FROM_EMAIL = "Jeddah Crane <no-reply@jeddahcrane.com>"
