@@ -51,6 +51,6 @@ export default {
       }
     }
 
-    return new Response("Only POST requests allowed.", { status: 405 });
+    //return new Response("Only POST requests allowed.", { status: 405 });
   },
 };
