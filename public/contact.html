@@ -115,9 +115,9 @@
 
                         <h3 class="text-lg font-semibold text-slate-900 mt-6 mb-2">Business Hours</h3>
                         <div class="space-y-1 text-slate-700">
-                            <p>Sunday - Thursday: 8:00 AM - 5:00 PM</p>
+                            <p>Sunday - Thursday: 9:00 AM - 5:00 PM</p>
                             <p>Friday: Closed</p>
-                            <p>Saturday: 9:00 AM - 1:00 PM</p>
+                            <p>Saturday: Closed</p>
                         </div>
                         
                     </div>
@@ -264,6 +264,31 @@
                 }
             });
         });
+        
+        // --- NEW CODE: Form Reset on Back Navigation ---
+        
+        // Function to reset the contact form
+        function resetContactForm() {
+            const form = document.querySelector('#message_contact').closest('form');
+            if (form) {
+                form.reset();
+            }
+        }
+
+        // Use the 'pageshow' event to detect a back/forward button navigation
+        window.addEventListener('pageshow', function (event) {
+            // event.persisted == true means the page was loaded from the browser's BFCache 
+            // (like hitting the 'Back' button)
+            if (event.persisted) {
+                resetContactForm();
+            }
+        });
+
+        // Also call it once when the page loads normally (e.g., full refresh or first visit)
+        document.addEventListener('DOMContentLoaded', resetContactForm);
+        
+        // --- END NEW CODE ---
+
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
