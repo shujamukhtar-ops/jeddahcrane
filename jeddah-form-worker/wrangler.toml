@@ -1,0 +1,5 @@
+name = "jeddah-form-worker"
+type = "javascript"
+
+main = "src/index.js"  # adjust if needed
+compatibility_date = "2025-10-18"
