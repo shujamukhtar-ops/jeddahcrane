@@ -124,7 +124,7 @@
 
                     <div class="bg-slate-50 p-6 sm:p-8 rounded-lg shadow-lg">
                         <h2 class="text-xl sm:text-2xl font-semibold text-slate-900 mb-4">Send Us a Message</h2>
-                        <form action="https://jeddahcrane.com/submit-form" method="POST" class="space-y-4">
+                        <form action="/submit-form" method="POST" class="space-y-4">
                             
                             <div>
                                 <label for="name_contact" class="block text-sm font-medium text-slate-700">Full Name</label>
@@ -144,6 +144,11 @@
                             <div>
                                 <label for="message_contact" class="block text-sm font-medium text-slate-700">Message</label>
                                 <textarea name="message" id="message_contact" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm" required></textarea>
+                            </div>
+                            <!-- Honeypot field to catch spambots. Keep hidden from users. -->
+                            <div style="display:none; visibility:hidden; height:0; overflow:hidden;">
+                                <label for="website">Website</label>
+                                <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
                             </div>
                             <div>
                                 <button type="submit" class="w-full inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-slate-900 bg-yellow-500 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors">
