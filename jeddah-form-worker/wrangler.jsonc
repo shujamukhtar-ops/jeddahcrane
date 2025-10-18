@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "jeddah-form-worker",
-	"main": "src/index.js",
+	"main": "../src/index.js",
 	"compatibility_date": "2025-10-18",
 	/**
 	 * Smart Placement
@@ -26,6 +26,7 @@
 	 */
 	"vars": { 
 		"FROM_EMAIL": "Jeddah Crane <no-reply@jeddahcrane.com>"
+		// , "THANKS_URL": "https://jeddahcrane.com/thanks.html"
 	},
 	/**
 	 * Note: Use secrets to store sensitive data.

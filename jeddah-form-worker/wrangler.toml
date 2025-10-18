@@ -1,4 +1,16 @@
 name = "jeddah-form-worker"
 type = "javascript"
-main = "src/index.js"
+main = "../src/index.js"
 compatibility_date = "2025-10-18"
+
+# Optional: map only the submit endpoint on your custom domain
+# Uncomment and set your zone if you want Wrangler to manage the route.
+# routes = [
+#   { pattern = "jeddahcrane.com/submit-form", zone_name = "jeddahcrane.com" }
+# ]
+
+[vars]
+# Display name/email for mails
+FROM_EMAIL = "Jeddah Crane <no-reply@jeddahcrane.com>"
+# Where to redirect after success (absolute URL supported). Defaults to "/thanks.html"
+# THANKS_URL = "https://jeddahcrane.com/thanks.html"

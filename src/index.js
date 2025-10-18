@@ -23,7 +23,8 @@ export default {
         if (honeypot) {
           // pretend success but don't send email
           const headers = new Headers();
-          headers.set("Location", new URL("/thanks.html", request.url).toString());
+          const thanksUrl = env.THANKS_URL || new URL("/thanks.html", request.url).toString();
+          headers.set("Location", thanksUrl);
           headers.set("Access-Control-Allow-Origin", request.headers.get("Origin") || "*");
           return new Response(null, { status: 303, headers });
         }
@@ -85,7 +86,8 @@ export default {
 
         if (emailResponse.ok) {
           const headers = new Headers();
-          headers.set("Location", new URL("/thanks.html", request.url).toString());
+          const thanksUrl = env.THANKS_URL || new URL("/thanks.html", request.url).toString();
+          headers.set("Location", thanksUrl);
           headers.set("Access-Control-Allow-Origin", request.headers.get("Origin") || "*");
           return new Response(null, { status: 303, headers });
         } else {
