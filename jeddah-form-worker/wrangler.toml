@@ -1,6 +1,4 @@
 name = "jeddah-form-worker"
 type = "javascript"
-account_id = "a51e378f6e0ef9ed8deac47d76d798cc"
-workers_dev = true
 main = "src/index.js"
 compatibility_date = "2025-10-18"
