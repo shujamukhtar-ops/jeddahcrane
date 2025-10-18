@@ -124,38 +124,78 @@
 
                     <div class="bg-slate-50 p-6 sm:p-8 rounded-lg shadow-lg">
                         <h2 class="text-xl sm:text-2xl font-semibold text-slate-900 mb-4">Send Us a Message</h2>
-                        <form action="/submit-form" method="POST" class="space-y-4">
-                            
+                        <form action="https://formsubmit.co/syed@jeddahcrane.com" method="POST" class="space-y-4">
+                            <!-- Hidden configuration fields for FormSubmit -->
+                            <input type="hidden" name="_subject" value="New Contact Form Submission">
+                            <input type="hidden" name="_template" value="box">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_next" value="https://www.jeddahcrane.com/thanks.html">
+
                             <div>
                                 <label for="name_contact" class="block text-sm font-medium text-slate-700">Full Name</label>
-                                <input type="text" name="name" id="name_contact" autocomplete="name" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm" required>
+                                <input type="text"
+                                    id="name_contact"
+                                    name="name"
+                                    autocomplete="name"
+                                    required
+                                    class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
                             </div>
+
                             <div>
                                 <label for="email_contact_form" class="block text-sm font-medium text-slate-700">Email Address</label>
-                                <input type="email" name="email" id="email_contact_form" autocomplete="email" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm" required>
+                                <input type="email"
+                                    id="email_contact_form"
+                                    name="email"
+                                    autocomplete="email"
+                                    required
+                                    class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
                             </div>
+
                             <div>
                                 <label for="phone_contact_form" class="block text-sm font-medium text-slate-700">Phone Number (Optional)</label>
-                                <input type="tel" name="phone" id="phone_contact_form" autocomplete="tel" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
+                                <input type="tel"
+                                    id="phone_contact_form"
+                                    name="phone"
+                                    autocomplete="tel"
+                                    class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
                             </div>
+
                             <div>
-                                <label for="subject_contact_form_field" class="block text-sm font-medium text-slate-700">Subject</label> <input type="text" name="subject" id="subject_contact_form_field" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm" required>
+                                <label for="subject_contact_form_field" class="block text-sm font-medium text-slate-700">Subject</label>
+                                <input type="text"
+                                    id="subject_contact_form_field"
+                                    name="subject"
+                                    required
+                                    class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
                             </div>
+
                             <div>
                                 <label for="message_contact" class="block text-sm font-medium text-slate-700">Message</label>
-                                <textarea name="message" id="message_contact" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm" required></textarea>
+                                <textarea id="message_contact"
+                                        name="message"
+                                        rows="4"
+                                        required
+                                        class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"></textarea>
                             </div>
-                            <!-- Honeypot field to catch spambots. Keep hidden from users. -->
+
+                            <!-- Honeypot field (for spam prevention) -->
                             <div style="display:none; visibility:hidden; height:0; overflow:hidden;">
                                 <label for="website">Website</label>
-                                <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+                                <input type="text"
+                                    id="website"
+                                    name="website"
+                                    tabindex="-1"
+                                    autocomplete="off">
                             </div>
+
                             <div>
-                                <button type="submit" class="w-full inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-slate-900 bg-yellow-500 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors">
+                                <button type="submit"
+                                        class="w-full inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-base font-medium rounded-md text-slate-900 bg-yellow-500 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors">
                                     Send Message
                                 </button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>

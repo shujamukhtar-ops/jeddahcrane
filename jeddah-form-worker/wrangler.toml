@@ -3,11 +3,11 @@ type = "javascript"
 main = "../src/index.js"
 compatibility_date = "2025-10-18"
 
-# Optional: map only the submit endpoint on your custom domain
-# Uncomment and set your zone if you want Wrangler to manage the route.
-# routes = [
-#   { pattern = "jeddahcrane.com/submit-form", zone_name = "jeddahcrane.com" }
-# ]
+# Map only the submit endpoint on your production domain(s)
+routes = [
+  { pattern = "jeddahcrane.com/submit-form*", zone_name = "jeddahcrane.com" },
+  { pattern = "www.jeddahcrane.com/submit-form*", zone_name = "jeddahcrane.com" }
+]
 
 [vars]
 # Display name/email for mails
